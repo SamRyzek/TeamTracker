@@ -1,0 +1,18 @@
+$(document).ready(function() {
+    console.log("loaded file");
+});
+
+var printTeam = function(){ 
+$('#content').empty();
+$.ajax({
+    type: 'GET',
+    url: 'http://localhost:8080/TeamRest/rest/teams',
+    dataType: "json"
+	})
+	.done(function(data, status){
+        console.log(data);
+    })
+    .fail(function(xhr, status, error){
+        console.error("Error");
+    });
+};

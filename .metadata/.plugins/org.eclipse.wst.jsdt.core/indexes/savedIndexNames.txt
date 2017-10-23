@@ -1,0 +1,7 @@
+INDEX VERSION 1.4+/Users/samuelryzek/SD/JS/teamTracker/.metadata/.plugins/org.eclipse.wst.jsdt.core/indexes
+1318759011.index
+1842084179.index
+2661249645.index
+1282931168.index
+4223401864.index
+1366867788.index

@@ -1,0 +1,55 @@
+package data;
+
+import java.util.List;
+
+import entities.Team;
+
+public class TeamDAOImpl implements TeamDAO {
+
+	@Override
+	public List<Team> getAll() {
+		String query = "SELECT t FROM Team t";
+		return em.createQuery(query, Team.class)
+				 .getResultList();
+	}
+
+	@Override
+	public Quiz show(int id) {
+		return em.find(Quiz.class, id);
+	}
+
+	@Override
+	public Quiz create(String quizJSON) {
+		
+		ObjectMapper mapper = new ObjectMapper();
+		try {
+			Quiz mappedQuiz = mapper.readValue(quizJSON, Quiz.class);
+			em.persist(mappedQuiz);
+			em.flush();
+			return mappedQuiz;
+			
+		} catch (Exception e) {
+			
+			e.printStackTrace();
+			
+		}
+		
+		return null;
+	}
+
+	@Override
+	public Quiz update(int id, Quiz quiz) {
+		Quiz managed = em.find(Quiz.class, id);
+		managed.setName(quiz.getName());
+		return managed;
+	}
+		
+		
+
+	@Override
+	public void remove(int id) {
+		Quiz q = em.find(Quiz.class, id);
+		em.remove(q);
+	}
+
+}

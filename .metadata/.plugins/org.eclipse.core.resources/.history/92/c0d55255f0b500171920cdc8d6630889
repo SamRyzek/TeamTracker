@@ -1,0 +1,10 @@
+$(document).ready(function() {
+    console.log("loaded file");
+});
+
+$('#content').empty();
+$.ajax({
+    type: 'GET',
+    url: 'http://localhost:8080/TeamRest/rest/teams',
+    dataType: "json"
+})

@@ -1,0 +1,206 @@
+$(document).ready(function() {
+    console.log("loaded file");
+    printTeam();
+
+});
+
+var printTeam = function(){ 
+	$('#content').empty();
+$.ajax({
+    type: 'GET',
+    url: 'http://localhost:8080/TeamRest/rest/teams',
+    dataType: "json"
+	})
+	.done(function(data, status){
+       showAllTeam(data);
+    })
+    .fail(function(xhr, status, error){
+        console.error("Error");
+    });
+	var body = $('<tbody>');
+	$('#content').append(body);
+	
+};
+
+var showAllTeam = function(data){
+
+	
+	//declares header variables
+	var body = $('<body>');
+	
+	body.empty();
+	var table = $('<table>');
+	var head = $('<thead>');
+	var trh = $('<tr>');
+	var th1 = $('<th>');
+	var th2 = $('<th>');
+
+	
+	//table header
+	th1.text("Team Name");
+
+	trh.append(th1);
+
+	head.append(trh);
+	table.append(head);
+	body.append(table);
+	
+	data.forEach(function(value, index, array){
+		
+		var trb = $('<tr>');
+		var td1 = $('<td>');
+		var td2 = $('<button>')
+		td2.attr("id", value.id);
+		td2.click(function(){
+			displayTeam(this.id);
+		});
+
+		td1.text(value.name);
+		td2.text("View");
+
+		trb.attr('name', value.name);
+		
+		trb.append(td1);
+		trb.append(td2);
+		body.append(trb);
+		
+	});
+	$("#create").attr("type", "Submit");
+	$("#create").attr("value", "Create New Team");
+	$("#create").click(function(e){
+		create(e);
+    });
+	$('#content').append(table);	
+	$('#content').append(body);
+
+	
+};
+
+var displayTeam = function(id){
+    $.ajax({
+        type: 'GET',
+        url: 'http://localhost:8080/TeamRest/rest/teams/' + id,
+        dataType: "json"
+    })
+    .done(function(data, status){
+    	console.log(data);
+        showTeam(data);
+    })
+    .fail(function(xhr, status, error){
+        console.error("Error");
+    });
+};
+
+var showTeam = function(data){
+	$('#content').empty();
+
+	var div = $('<div>');
+	div.attr('name', 'single');
+	var p1 = $('<p>');
+	var p2 = $('<p>');
+	var p3 = $('<p>');
+
+	p1.append('Name :' + data.name);
+	p2.append('Week :' + data.gameWeek);
+	p3.append('Win/Loss:' + data.winOrLoss);
+	
+	div.append(p1);
+	div.append(p2);
+	div.append(p3);
+	
+	var backButton= $('<button id="button">Back</button>')
+	backButton.click(function(){
+		printTeam();
+	});
+    div.append(backButton);
+    
+    var deleteButton = $('<button id="delete">Delete</button>');
+    deleteButton.click(function(){
+       deleteTeam(data.id);
+    });
+       div.append(deleteButton);
+       $("#create").attr("type", "hidden");
+       
+//       var update = $("<input>");
+//       
+//    update.attr("type", "submit");
+//    update.attr("value", "Update");
+//    update.attr("id", data.id)
+//    update.click(function(e){
+//    		update(e);
+//    })
+    $('#content').prepend(div);
+    $('form').append(update);
+    
+};
+
+var create = function(e){
+    e.preventDefault();
+    var myTeamForm = {
+        name: $(newTeamForm.name).val(),
+        gameWeek: $(newTeamForm.gameWeek).val(),
+        winOrLoss: $(newTeamForm.winOrLoss).val(),
+    }
+    console.log(myTeamForm);
+    console.log(JSON.stringify(myTeamForm));
+    $.ajax({
+    type: 'POST',
+    url: 'http://localhost:8080/TeamRest/rest/teams/',
+    dataType: 'json',
+    contentType: 'application/json',
+    data: JSON.stringify(myTeamForm)
+    })
+    .done(function(data, status){
+       printTeam(myTeamForm);
+    })
+    .fail(function(xhr, status, error){
+        console.error("Error");
+    });
+
+    
+};
+
+var deleteTeam = function(id){
+	console.log(id);
+    $.ajax({
+    		type: "DELETE",
+    		url: 'http://localhost:8080/TeamRest/rest/teams/' + id,
+    		dataType: "json"
+    })
+    .done(function(data, status){
+    	console.log(data)
+        printTeam();
+    })
+    .fail(function(data, status){
+    	console.log("fail")
+    });
+};
+
+var update = function(e){
+    e.preventDefault();
+    var myTeamForm = {
+        gameWeek: $(updateTeamForm.gameWeek).val(),
+        winOrLoss: $(updateTeamForm.winOrLoss).val(),
+    }
+    console.log(myTeamForm);
+    console.log(JSON.stringify(myTeamForm));
+//    $.ajax({
+//    type: 'PUT',
+//    url: 'http://localhost:8080/TeamRest/rest/teams/' + id,
+//    dataType: 'json',
+//    contentType: 'application/json',
+//    data: JSON.stringify(myTeamForm)
+//    })
+//    .done(function(data, status){
+////        printTeam(myTeamForm);
+//    })
+//    .fail(function(xhr, status, error){
+//        console.error("Error");
+//    });
+ 
+};
+
+
+
+
+

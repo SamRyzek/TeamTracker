@@ -1,0 +1,63 @@
+package data;
+
+import java.util.List;
+
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
+
+import entities.Team;
+
+public class TeamDAOImpl implements TeamDAO {
+	
+	@PersistenceContext
+	private EntityManager em;
+
+	@Override
+	public List<Team> getAll() {
+		String query = "SELECT t FROM Team t";
+		return em.createQuery(query, Team.class)
+				 .getResultList();
+	}
+
+	@Override
+	public Team show(int id) {
+		return em.find(Team.class, id);
+	}
+
+	@Override
+	public Team create(String teamJSON) {
+		
+		ObjectMapper mapper = new ObjectMapper();
+		try {
+			Team mappedQuiz = mapper.readValue(teamJSON, Team.class);
+			em.persist(mappedQuiz);
+			em.flush();
+			return mappedQuiz;
+			
+		} catch (Exception e) {
+			
+			e.printStackTrace();
+			
+		}
+		
+		return null;
+	}
+
+	@Override
+	public Team update(int id, Team team) {
+		Team managed = em.find(Team.class, id);
+		managed.setName(team.getName());
+		return managed;
+	}
+		
+		
+
+	@Override
+	public void remove(int id) {
+		Team t = em.find(Team.class, id);
+		em.remove(t);
+	}
+
+}
