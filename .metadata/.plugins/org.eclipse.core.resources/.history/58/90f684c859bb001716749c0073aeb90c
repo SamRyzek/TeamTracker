@@ -1,0 +1,19 @@
+<h1>Pokemon</h1>
+
+<span ng-repeat="type in vm.types"><button ng-click="vm.filterByType(type)">{{type}}</button> </span>
+
+<form>
+	<input type="text" placeholder="Id" ng-model="pokemon.pokeId"/>
+	<input type="text" placeholder="Name" ng-model="pokemon.name"/>
+	<input ng-click="vm.createPokemon(pokemon); pokemon={};" type="submit" value="Add" />
+</form>
+
+<div ng-repeat="pokemon in vm.pokemon | orderBy: 'pokeId' | idTypeFilter: vm.filterSort">
+	
+	<p>ID: {{pokemon.pokeId}}</p> 
+	<p>Name: {{pokemon.name}}</p>
+	<p>Height: {{pokemon.height | number:2}}</p>
+	<p>Weight: {{pokemon.weight | number:2}}</p>
+	<p><img ng-src="{{pokemon.img}}"/></p>	
+
+</div>

@@ -1,0 +1,21 @@
+<h1>Team Tracker</h1>
+
+
+<form>
+	<input type="text" placeholder="Id" ng-model="team.id"/>
+	<input type="text" placeholder="Name" ng-model="team.name"/>
+	<input type="text" placeholder="week" ng-model="team.gameWeek"/>
+	<input type="text" placeholder="winOrLoss" ng-model="team.winOrLoss"/>
+	<input ng-click="vm.createTeam(team); team={};" type="submit" value="Add" />
+	<input ng-click="vm.updateTeam(team); team={};" type="submit" value="Update" />
+	<input ng-click="vm.deleteTeam(team); team={};" type="submit" value="Delete" />
+</form>
+
+<div ng-repeat="team in vm.team">
+	
+	<p>ID: {{team.id}}</p> 
+	<p>Name: {{team.name}}</p>
+	<p>Height: {{team.gameWeek}}</p>
+	<p>Weight: {{team.winOrLoss}}</p>
+
+</div>

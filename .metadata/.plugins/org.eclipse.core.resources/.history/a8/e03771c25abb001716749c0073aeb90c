@@ -1,0 +1,31 @@
+angular.module('team')
+  .component('teamList', {
+    templateUrl: 'app/appModule/teamTracker.component.html',
+ 
+  
+    		controller: function(teamTrackerService){
+	  
+    		var vm = this;
+    		
+		vm.team = [];
+		
+		
+		teamTrackerService.index()
+		.then(function(res){
+			
+			vm.team = res.data
+			
+		});
+		 
+		vm.createTeam = function(team){
+			
+			teamTrackerService.create(team)
+			.then(function(response){
+				
+			});
+		}
+			
+  
+  	},
+  	 controllerAs : 'vm'
+  });

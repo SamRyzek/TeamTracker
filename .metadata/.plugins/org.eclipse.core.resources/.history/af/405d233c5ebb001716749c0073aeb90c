@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html ng-app="teams">
+<head>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.7/angular.min.js"></script>
+<script src="app/appModule/app.module.js"></script>
+<script src="app/appModule/teamTracker.service.js"></script>
+<script src="app/appModule/teamTracker.component.js"></script>
+<title>Team Tracker</title>
+</head>
+<body>
+	<team-list>Loading...</team-list>
+</body>
+
+</html>

@@ -1,0 +1,20 @@
+<h1>Team Tracker</h1>
+
+
+<form>
+	<input type="text" placeholder="Id" ng-model="team.id"/>
+	<input type="text" placeholder="Name" ng-model="team.name"/>
+	<input type="text" placeholder="week" ng-model="team.gameWeek"/>
+	<input type="text" placeholder="Name" ng-model="team.name"/>
+	<input ng-click="vm.createPokemon(pokemon); pokemon={};" type="submit" value="Add" />
+</form>
+
+<div ng-repeat="pokemon in vm.pokemon | orderBy: 'pokeId' | idTypeFilter: vm.filterSort">
+	
+	<p>ID: {{pokemon.pokeId}}</p> 
+	<p>Name: {{pokemon.name}}</p>
+	<p>Height: {{pokemon.height | number:2}}</p>
+	<p>Weight: {{pokemon.weight | number:2}}</p>
+	<p><img ng-src="{{pokemon.img}}"/></p>	
+
+</div>

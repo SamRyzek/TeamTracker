@@ -1,0 +1,35 @@
+angular.module('team')
+  .component('teamList', {
+    templateUrl: 'app/appModule/teamTracker.component.html',
+ 
+  
+    		controller: function(pokemonService){
+	  
+    		var vm = this;
+    		
+		vm.pokemon = [];
+		
+		
+		pokemonService.index()
+		.then(function(res){
+			
+			vm.pokemon = res.data
+			
+		});
+		 
+		vm.createPokemon = function(pokemon){
+			
+			pokemonService.create(pokemon)
+			.then(function(response){
+				
+			});
+		}
+			
+		vm.filterByType = function(type){
+			console.log(type);
+			vm.filterSort = type;
+		}
+  
+  	},
+  	 controllerAs : 'vm'
+  });
