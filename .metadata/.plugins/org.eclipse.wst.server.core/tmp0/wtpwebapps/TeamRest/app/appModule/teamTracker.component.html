@@ -1,13 +1,14 @@
 <h1>Team Tracker</h1>
 
-
-<form>
-	<input type="text" placeholder="Id" ng-model="team.id"/>
-	<input type="text" placeholder="Name" ng-model="team.name"/>
-	<input type="text" placeholder="week" ng-model="team.gameWeek"/>
-	<input type="text" placeholder="winOrLoss" ng-model="team.winOrLoss"/>
+<div ng-hide="">
+	<form ng-show="vm.updateTeam">
+		<input type="text" placeholder="Id" ng-model="team.id"/>
+		<input type="text" placeholder="Name" ng-model="team.name"/>
+		<input type="text" placeholder="week" ng-model="team.gameWeek"/>
+		<input type="text" placeholder="winOrLoss" ng-model="team.winOrLoss"/>
 	<input ng-click="vm.updateTeam(team); team={};" type="submit" value="Update" />
-</form>
+	</form>
+</div>
 <form>
 	<input type="text" placeholder="Name" ng-model="team.name"/>
 	<input type="text" placeholder="week" ng-model="team.gameWeek"/>
@@ -15,19 +16,13 @@
 	<input ng-click="vm.createTeam(team); team={};" type="submit" value="Add" />
 	
 </form>
-
-<form>
-	<input type="text" placeholder="Id" ng-model="team.id"/>
-	<input ng-click="vm.deleteTeam(team.id); id={};" type="submit" value="Delete" />
-</form>
-
-	
 	
 <div ng-repeat="team in vm.team">
-	
-	<p>ID: {{team.id}}</p> 
-	<p>Name: {{team.name}}</p>
-	<p>Week: {{team.gameWeek}}</p>
-	<p>Win Or Loss: {{team.winOrLoss}}</p>
-
+	<form ng-hide="vm.update">
+		<p>ID: {{team.id}}</p> 
+		<p>Name: {{team.name}}</p>
+		<p>Week: {{team.gameWeek}}</p>
+		<p>Win Or Loss: {{team.winOrLoss}}</p>
+	<input ng-click="vm.deleteTeam(team.id); id={};" type="submit" value="Delete" />
+	</form>
 </div>

@@ -13,19 +13,12 @@ angular.module('team')
 		vm.reload = function(){
 			  teamService.index()
 			  .then(function(res){
-				vm.todos = res.data;
+				vm.team = res.data;
 			  });
 		  }
 		  
 		vm.reload();
-		
-//		teamService.index()
-//		.then(function(res){
-//			
-//			vm.team = res.data
-//			
-//		});
-//		 
+			 
 		vm.createTeam = function(team){
 			console.log(team);
 			teamService.create(team)
@@ -51,8 +44,6 @@ angular.module('team')
 			  });
 		  }
 		
-		
-			
   
   	},
   	 controllerAs : 'vm'
